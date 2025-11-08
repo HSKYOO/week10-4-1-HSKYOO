@@ -62,8 +62,8 @@
         // makeList 함수 (list html)
         function makeList(data) {
             let listHtml = "<ul>";
-            data.forEach(students => {
-                listHtml += '<li> id: ${student.id} / 이름: ${student.name} / 나이: ${student.age} / 점수: ${student.score}</li>';
+            data.forEach(student => {
+                listHtml += `<li> id: ${student.id} / 이름: ${student.name} / 나이: ${student.age} / 점수: ${student.score}</li>`;
             });
             listHtml += "</ul>";
             return listHtml;
@@ -116,7 +116,7 @@
             };
 
             const xhr = new XMLHttpRequest();
-            xhr.open("PUT", '${home_url}/${id}', true);
+            xhr.open("PUT", `${home_url}/${id}`, true);
             xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
             xhr.send(JSON.stringify(updateData));
 
@@ -135,12 +135,12 @@
         function deleteStudents() {
             const id = document.getElementById("input_id").value;
             if (!id) {
-                alert("수정할 학생의 ID 입력하세요!");
+                alert("삭제할 학생의 ID 입력하세요!");
                 return;
             }
 
             const xhr = new XMLHttpRequest();
-            xhr.open("DELETE", '${home_url}/${id}', true);
+            xhr.open("DELETE", `${home_url}/${id}`, true);
             xhr.send();
 
             xhr.onload = function() {
@@ -157,9 +157,9 @@
         // 입력창 비우기
         function clearInputs() {
             document.getElementById("input_id").value = "";
-            document.getElementById("input_id").value = "";
-            document.getElementById("input_id").value = "";
-            document.getElementById("input_id").value = "";
+            document.getElementById("input_text").value = "";
+            document.getElementById("input_age").value = "";
+            document.getElementById("input_score").value = "";
         }
 
     </script>
