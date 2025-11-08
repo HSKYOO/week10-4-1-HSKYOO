@@ -99,7 +99,36 @@
 
         // Edit
         function editStudents() {
+            const id = document.getElementById("input_id").value;
+            if (!id) {
+                alert("수정할 학생의 ID 입력하세요!");
+                return;
+            }
 
+            const name = document.getElementById("input_text").value;
+            const age = document.getElementById("input_age").value;
+            const score = document.getElementById("input_score").value;
+            
+            const updateData = {
+                name: name,
+                age: parseInt(age),
+                score: parseInt(score)
+            };
+
+            const xhr = new XMLHttpRequest();
+            xhr.open("PUT", '${home_url}/${id}', true);
+            xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
+            xhr.send(JSON.stringify(updateData));
+
+            xhr.onload = function() {
+                if(xhr.status === 200) {
+                    alert("수정됨!");
+                    clearInputs();      // 입력창 리셋해야됨 --> 나중에 만들기
+                    getStudents();      
+                } else {
+                    console.error("Error:", xhr.status, xhr.statusText);
+                }
+            }
         }
 
         // Delete 
