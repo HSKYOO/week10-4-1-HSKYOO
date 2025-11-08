@@ -41,7 +41,7 @@
             document.getElementById("btn_delete").addEventListener("click", deleteStudents);
         }
 
-        // List
+        // List -> Read
         function getStudents() {
             const xhr = new XMLHttpRequest();
             xhr.open("GET", home_url, true);
@@ -58,10 +58,43 @@
 
             }
         }
-        
-        // Add
-        function addStudents() {
 
+        // makeList 함수 (list html)
+        function makeList(data) {
+            let listHtml = "<ul>";
+            data.forEach(students => {
+                listHtml += '<li> id: ${student.id} / 이름: ${student.name} / 나이: ${student.age} / 점수: ${student.score}</li>';
+            });
+            listHtml += "</ul>";
+            return listHtml;
+        }
+        
+        // Add -> Create
+        function addStudents() {
+            const name = document.getElementById("input_text").value;
+            const age = document.getElementById("input_age").value;
+            const score = document.getElementById("input_score").value;
+
+            const newData = {
+                name: name,
+                age: parseInt(age),
+                score: parseInt(score)
+            };
+
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", home_url, true);
+            xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
+            xhr.send(JSON.stringify(newData));
+
+            xhr.onload = function() {
+                if(xhr.status === 201) {
+                    alert("추가됨!");
+                    clearInputs();      // 입력창 리셋해야됨 --> 나중에 만들기
+                    getStudents();      
+                } else {
+                    console.error("Error:", xhr.status, xhr.statusText);
+                }
+            }
         }
 
         // Edit
@@ -71,7 +104,7 @@
 
         // Delete 
         function deleteStudents() {
-            
+
         }
 
         // 입력창 비우기
