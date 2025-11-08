@@ -133,7 +133,25 @@
 
         // Delete 
         function deleteStudents() {
+            const id = document.getElementById("input_id").value;
+            if (!id) {
+                alert("수정할 학생의 ID 입력하세요!");
+                return;
+            }
 
+            const xhr = new XMLHttpRequest();
+            xhr.open("DELETE", '${home_url}/${id}', true);
+            xhr.send();
+
+            xhr.onload = function() {
+                if(xhr.status === 200) {
+                    alert("삭제됨!");
+                    clearInputs();      // 입력창 리셋해야됨 --> 나중에 만들기
+                    getStudents();      
+                } else {
+                    console.error("Error:", xhr.status, xhr.statusText);
+                }
+            }
         }
 
         // 입력창 비우기
