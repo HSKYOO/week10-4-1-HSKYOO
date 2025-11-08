@@ -6,6 +6,8 @@
     <title>Document</title>
 
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="my.css">
 </head>
 <style>
     p {
@@ -15,10 +17,71 @@
 </style>
 <body>
     <p>My CRUD Page</p>
-    <!-- Data : id // name // page // score -->
+
+    <!-- Data : id // name // age // score -->
+    id : <input type="text" id="input_id">
+    name : <input type="text" id="input_text">
+    age : <input type="number" id="input_age">
+    score : <input type="number" id="input_score">
 
     <!-- CRUD : (데이터) 목록보기 // 추가하기 // 수정하기 // 삭제하기 -->
     <button id="btn_list">목록보기</button>
+    <button id="btn_add">추가하기</button>
+    <button id="btn_edit">수정하기</button>
+    <button id="btn_delete">삭제하기</button>
 
+    <script>
+        // 기본 주소
+        const home_url = 'https://week10-4-1-hskyoo.vercel.app/'
+
+        window.onload = function(){
+            document.getElementById("btn_list").addEventListener("click", getStudents);
+            document.getElementById("btn_add").addEventListener("click", addStudents);
+            document.getElementById("btn_edit").addEventListener("click", editStudents);
+            document.getElementById("btn_delete").addEventListener("click", deleteStudents);
+        }
+
+        // List
+        function getStudents() {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", home_url, true);
+            xhr.setRequestHeader("content-type", "application/json");
+            xhr.send();
+
+            xhr.onload = function() {
+                if(xhr.status === 200) {
+                    const students = JSON.parse(xhr.response);
+                    document.getElementById("result-list").innerHTML = makeList(students);
+                } else {
+                    console.error("Error:", xhr.status, xhr.statusText);
+                }
+
+            }
+        }
+        
+        // Add
+        function addStudents() {
+
+        }
+
+        // Edit
+        function editStudents() {
+
+        }
+
+        // Delete 
+        function deleteStudents() {
+            
+        }
+
+        // 입력창 비우기
+        function clearInputs() {
+            document.getElementById("input_id").value = "";
+            document.getElementById("input_id").value = "";
+            document.getElementById("input_id").value = "";
+            document.getElementById("input_id").value = "";
+        }
+
+    </script>
 </body>
 </html>
